@@ -1,7 +1,8 @@
+
 const ratingWidget = document.getElementById('rating-widget');
 const ratingInput = document.getElementById('rating');
-
 const maxRating = Math.max(3, Math.min(10, parseInt(document.getElementById('rating').max)));
+
 for (let i = 1; i <= maxRating; i++) {
     const star = document.createElement('span');
     star.classList.add('star');
@@ -30,18 +31,32 @@ function resetStars() {
 }
 
     function submitRating(selectedStar) {
-        const rating = parseInt(selectedStar.getAttribute('data-rating'));
-        console.log(`Submitting rating: ${rating}`);
-  
-        const percentage = (rating / maxRating) * 100;
+        const selectedRating = parseInt(selectedStar.getAttribute('data-rating'));
+        console.log(`Submitting rating: ${selectedRating}`);
+
+        const percentage = (selectedRating / maxRating) * 100;
         const message = percentage >= 80 ? 'Positive message' : 'Acknowledging poor rating. We will try to improve.';
-  
+
         console.log(message);
+
+        // Set headers and form values
+        const headers = new Headers();
+        headers.append('X-Sent-By', 'JS');
+
+        const formData = new FormData();
+        formData.append('question', 'How satisfied are you?');
+        formData.append('sentBy', 'js');
+        formData.append('rating', selectedRating);
+
+        // Fetch API to send the rating to the server
+        fetch('https://httpbin.org/post', {
+            method: 'POST',
+            headers: headers,
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => console.log(data));
+    }
   
-        // You can replace the following line with your actual endpoint for submitting ratings
-        // For demonstration purposes, we'll use a fake endpoint that returns a positive or negative message
-        const fakeEndpointResponse = percentage >= 80 ? 'Positive message' : 'Acknowledging poor rating';
-        console.log(fakeEndpointResponse);
-  }
 
 
