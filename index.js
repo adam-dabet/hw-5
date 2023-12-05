@@ -1,62 +1,74 @@
 
-const ratingWidget = document.getElementById('rating-widget');
-const ratingInput = document.getElementById('rating');
-const maxRating = Math.max(3, Math.min(10, parseInt(document.getElementById('rating').max)));
+document.addEventListener("DOMContentLoaded", function () {
+    const ratingForm = document.getElementById("rating-form");
+    const ratingInput = document.getElementById("rating");
+    const ratingWidget = document.getElementById("rating-widget");
+    const ratingMessage = document.getElementById("rating-message");
 
-for (let i = 1; i <= maxRating; i++) {
-    const star = document.createElement('span');
-    star.classList.add('star');
-    star.innerHTML = '★';
-    star.setAttribute('data-rating', i);
-    ratingWidget.appendChild(star);
-}
+    const maxStars = Math.max(Math.min(parseInt(ratingInput.max), 10), 3);
 
-const stars = ratingWidget.querySelectorAll('.star');
-stars.forEach(star => {
-  star.addEventListener('mouseover', () => highlightStars(star));
-  star.addEventListener('mouseout', () => resetStars());
-  star.addEventListener('click', () => submitRating(star));
-});
-
-function highlightStars(selectedStar) {
-    resetStars();
-    const selectedRating = parseInt(selectedStar.getAttribute('data-rating'));
-    for (let i = 0; i < selectedRating; i++) {
-      stars[i].classList.add('active');
+    for (let i = 1; i <= maxStars; i++) {
+        const star = document.createElement("span");
+        star.className = "star";
+        star.textContent = "★";
+        star.dataset.value = i;
+        ratingWidget.appendChild(star);
     }
-}
+    ratingWidget.addEventListener("mouseover", handleStarHover);
+    ratingWidget.addEventListener("click", handleStarClick);
+    function handleStarHover(event) {
+    const hoveredStar = event.target;
+    const value = hoveredStar.dataset.value;
 
-function resetStars() {
-    stars.forEach(star => star.classList.remove('active'));
-}
-
-    function submitRating(selectedStar) {
-        const selectedRating = parseInt(selectedStar.getAttribute('data-rating'));
-        console.log(`Submitting rating: ${selectedRating}`);
-
-        const percentage = (selectedRating / maxRating) * 100;
-        const message = percentage >= 80 ? 'Positive message' : 'Acknowledging poor rating. We will try to improve.';
-
-        console.log(message);
-
-        // Set headers and form values
-        const headers = new Headers();
-        headers.append('X-Sent-By', 'JS');
-
-        const formData = new FormData();
-        formData.append('question', 'How satisfied are you?');
-        formData.append('sentBy', 'js');
-        formData.append('rating', selectedRating);
-
-        // Fetch API to send the rating to the server
-        fetch('https://httpbin.org/post', {
-            method: 'POST',
-            headers: headers,
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => console.log(data));
+    // Highlight stars up to the hovered star
+    for (const star of ratingWidget.children) {
+      star.classList.toggle("active", star.dataset.value <= value);
     }
+  }
+  function handleStarClick(event) {
+    const clickedStar = event.target;
+    const value = clickedStar.dataset.value;
+    const ratingPercentage = (value / maxStars) * 100;
   
+    // Create an object to represent the form data
+    const formData = new FormData();
+    formData.append('rating', value);
+    formData.append('sentBy', 'JS');
+  
+    // Create an object to represent the headers
+    const headers = new Headers();
+    headers.append('X-Sent-By', 'JS');
+  
+    // Simulate sending the rating to a fake endpoint
+    fetch('https://httpbin.org/post', {
+      method: 'POST',
+      body: formData,
+      headers: headers
+    })
+    .then(response => response.json())
+    .then(fakeEndpointResponse => {
+      console.log(fakeEndpointResponse);
+  
+      // Determine the appropriate message based on the rating percentage
+      let message;
+      if (ratingPercentage >= 80) {
+        message = `Thanks for the ${value} star rating! We appreciate your positive feedback.`;
+      } else {
+        message = `Thanks for the feedback of ${value} stars. We'll try to do better.`;
+      }
+  
+      // Display the message
+      ratingMessage.textContent = message;
+  
+      // Hide the stars after one is clicked
+      ratingWidget.classList.add("stars-hidden");
+  
+      // Prevent further interactions by removing event listeners
+      ratingWidget.removeEventListener("mouseover", handleStarHover);
+      ratingWidget.removeEventListener("click", handleStarClick);
+    })
+    .catch(error => console.error('Error:', error));
+  }
 
 
+})

@@ -6,17 +6,29 @@ body {
     margin: 0;
   }
 
-rating-widget {
+.rating-widget {
     display: inline-block;
-    font-size: 2rem;
+    
     cursor: pointer;
+  }
+  h1{
+    font-size: 2rem;
+
   }
 
   .star {
     color: gray;
+    font-size: 2rem;
   }
 
   .star:hover,
   .star.active {
     color: gold;
+  }
+  #rating-message {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  .stars-hidden .star {
+    display: none;
   }

@@ -21,8 +21,14 @@
             <button type="submit" >Submit</button>
         </form> 
     </noscript>
-    <label for="rating">How satisfied are you?</label>
-    <div class="rating-widget" id="rating-widget"></div>
+
+    <div class="rating-widget" id="rating-widget">
+    <h1>Rating Widget</h1>
+    <form action="https://httpbin.org/post" method="POST" ></form>
+    <input type="hidden" id="rating" name="rating" min="3"
+    max="5" value="0" required>
+    <div id="rating-message"></div>
+    </div>
 
     <script src="index.js"></script>
 
