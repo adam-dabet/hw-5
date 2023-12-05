@@ -1,0 +1,14 @@
+rating-widget {
+    display: inline-block;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .star {
+    color: gray;
+  }
+
+  .star:hover,
+  .star.active {
+    color: gold;
+  }
