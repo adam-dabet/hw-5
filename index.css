@@ -1,6 +1,7 @@
 :root {
     --gray: #999ba2e5;
     --gold: #c29909e5;
+    --star-symbol: ★;
 }
 body {
     display: flex;

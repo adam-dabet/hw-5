@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let i = 1; i <= maxStars; i++) {
         const star = document.createElement("span");
         star.className = "star";
-        star.textContent = "★";
+        star.textContent = getComputedStyle(document.documentElement).getPropertyValue('--star-symbol');
         star.dataset.value = i;
         ratingWidget.appendChild(star);
     }
