@@ -1,10 +1,11 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     const ratingForm = document.getElementById("rating-form");
+    ratingForm.style.display='none';
     const ratingInput = document.getElementById("rating");
     const ratingWidget = document.getElementById("rating-widget");
     const ratingMessage = document.getElementById("rating-message");
-
+    
     const maxStars = Math.max(Math.min(parseInt(ratingInput.max), 10), 3);
 
     for (let i = 1; i <= maxStars; i++) {

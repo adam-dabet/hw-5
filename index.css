@@ -1,3 +1,7 @@
+:root {
+    --gray: #999ba2e5;
+    --gold: #c29909e5;
+}
 body {
     display: flex;
     align-items: center;
@@ -6,24 +10,31 @@ body {
     margin: 0;
   }
 
-.rating-widget {
-    display: inline-block;
-    
+.rating-widget{
+    display: block;
     cursor: pointer;
   }
+
+rating-form{
+    display: inline-block;
+    font-size:2rem;
+  }
+  
   h1{
+    display: inline-block;
     font-size: 2rem;
+    
 
   }
 
   .star {
-    color: gray;
+    color: var(--gray);
     font-size: 2rem;
   }
 
   .star:hover,
   .star.active {
-    color: gold;
+    color: var(--gold);
   }
   #rating-message {
     margin-top: 10px;
