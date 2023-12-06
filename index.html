@@ -12,9 +12,9 @@
 </head>
 
 <body>
-    <rating-form id="rating-form">
-        
 
+    <rating-form id="rating-form">
+        <h1>Rating Widget</h1>
         <form action="https://httpbin.org/post" method="POST" >
             <label for="rating">How satisfied are you?</label>
             <input type="hidden" name="question" value="How satisfied are you?" >
@@ -25,11 +25,12 @@
     </rating-form>
 
     <div class="rating-widget" id="rating-widget">
-    <h1>Rating Widget</h1>
-    <form action="https://httpbin.org/post" method="POST" ></form>
-    <input type="hidden" id="rating" name="rating" min="3"
-    max="5" value="0" required>
-<div id="rating-message"></div>
+        <h1 id="js"> Rating Widget</h1>
+
+        <form action="https://httpbin.org/post" method="POST" ></form>
+        <input type="hidden" id="rating" name="rating" min="3"
+        max="5" value="0" required>
+        <div id="rating-message"></div>
     </div>
 
     
