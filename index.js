@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const maxStars = Math.max(Math.min(parseInt(ratingInput.max), 10), 3);
 
-
     for (let i = 1; i <= maxStars; i++) {
         const star = document.createElement("span");
         star.className = "star";
@@ -20,20 +19,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     ratingWidget.addEventListener("mouseover", handleStarHover);
     ratingWidget.addEventListener("click", handleStarClick);
+    
     function handleStarHover(event) {
         const hoveredStar = event.target;
         const value = hoveredStar.dataset.value;
-        
-    // Highlight stars up to the hovered star
-    for (const star of ratingWidget.children) {
-      star.classList.toggle("active", star.dataset.value <= value);
+  
+        // Highlight stars up to the hovered star
+        for (const star of ratingWidget.children) {
+          star.classList.toggle("active", star.dataset.value <= value);
+        }
     }
-  }
-
   
   function handleStarClick(event) {
-    const clickedStar = event.target;
-    if (clickedStar.classList.contains("star")) {
+        const clickedStar = event.target;
+    //if (clickedStar.classList.contains("star")) {
         const value = clickedStar.dataset.value;
         const ratingPercentage = (value / maxStars) * 100;
 
@@ -53,8 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
             headers: headers
         })
             .then(response => response.json())
-            .then(fakeEndpointResponse => {
-                console.log(fakeEndpointResponse);
+            .then(EndpointResponse => {
+                console.log(EndpointResponse);
 
                 // Determine the appropriate message based on the rating percentage
                 let message;
@@ -75,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ratingWidget.removeEventListener("click", handleStarClick);
             })
             .catch(error => console.error('Error:', error));
-    }
+    //}
   }
 
 
