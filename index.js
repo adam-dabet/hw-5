@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
   function handleStarClick(event) {
         const clickedStar = event.target;
-    //if (clickedStar.classList.contains("star")) {
+    if (clickedStar.classList.contains("star")) {
         const value = clickedStar.dataset.value;
         const ratingPercentage = (value / maxStars) * 100;
 
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ratingWidget.removeEventListener("click", handleStarClick);
             })
             .catch(error => console.error('Error:', error));
-    //}
+    }
   }
 
 

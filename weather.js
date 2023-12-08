@@ -6,9 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const conditionsElement = document.getElementById("conditions");
     const weatherMessage = document.getElementById("weather-message");
 
-    // Coordinates for UCSD (La Jolla)
-    const latitude = 32.8328;
-    const longitude = -117.2713;
+    const windSpeedElement = document.getElementById("wind-speed");
+    const humidityElement = document.getElementById("humidity");
+
+
 
     // National Weather Service API endpoint
     const apiEndpoint = `https://api.weather.gov/points/32.87083,-117.25083`;
@@ -32,11 +33,13 @@ document.addEventListener("DOMContentLoaded", function () {
         // Check if the data is available and has properties.periods
         if (forecastData.properties && forecastData.properties.periods && forecastData.properties.periods.length > 0) {
           const currentConditions = forecastData.properties.periods[0];
-
+          
           // Display weather information
-          weatherIcon.src = currentConditions.icon;
+          weatherIcon.className = getWeatherIconClass(currentConditions.shortForecast);
           temperatureElement.textContent = `${currentConditions.temperature} ${currentConditions.temperatureUnit}`;
           conditionsElement.textContent = currentConditions.shortForecast;
+          windSpeedElement.textContent = `${currentConditions.windSpeed} ${currentConditions.windDirection}`;
+          humidityElement.textContent = `${currentConditions.relativeHumidity.value}%`;
 
           // Hide the "unavailable" message
           weatherMessage.style.display = "none";
@@ -50,4 +53,27 @@ document.addEventListener("DOMContentLoaded", function () {
         // Show the "unavailable" message
         weatherMessage.textContent = "Current Weather Conditions Unavailable";
       });
+
+
+      function getWeatherIconClass(condition) {
+        switch (condition) {
+          case "Sunny":
+            return "fa fa-sun";
+          case "Partly Sunny":
+            return "fa fa-cloud-sun";
+          case "Mostly Sunny":
+            return "fa fa-sun";
+          case "Partly Cloudy":
+            return "fa fa-cloud";        
+          case "Mostly Clear":
+            return "fa fa-moon";
+          case "Mostly Cloudy":
+            return "fa fa-cloud";
+          case "partly-cloudy-night":
+            return "fa fa-cloud";
+          default:
+            return "fa fa-question";
+        }
+      
+      }
   });

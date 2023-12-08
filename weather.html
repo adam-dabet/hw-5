@@ -4,17 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="weather.css">  
+  <link rel="stylesheet" href="/font-awesome/css/all.min.css">
 
 </head>
 <body>
-
-    <div id="weather-widget" class="weather-widget">
-        <h2>Current Weather</h2>
-        <img id="weather-icon" class="weather-icon" alt="Weather Icon">
-        <p id="temperature"></p>
-        <p id="conditions"></p>
-        <p id="weather-message">Current Weather Conditions Unavailable</p>
+  <nav class="container">      
+    <ul class="navigation">
+      
+      <li ><a class="button" href="index.html">Rating Widget</a></li>
+      
+    </ul>
+  </nav>
+ <div class="body">   
+<section class="weather-widget">
+  <header class="weather-header">
+    <h1>Current Weather</h2>
+  </header>
+  <section class="weather-details">
+    <i id="weather-icon" class="weather-icon"></i>
+    <div class="weather-detail">
+      <span class="detail-label">Temperature: </span>
+      <span id="temperature"></span>
     </div>
+    <div class="weather-detail">
+      <span class="detail-label">Conditions:  </span>
+      <span id="conditions"></span>
+    </div>
+    <div class="weather-detail">
+      <span class="detail-label">Wind Speed: </span>
+      <span id="wind-speed"></span>
+    </div>
+    <div class="weather-detail">
+      <span class="detail-label">Humidity: </span>
+      <span id="humidity"></span>
+    </div>
+    <p id="weather-message"></p>
+  </section>
+</section>
+</div>
+
 
     <script src="weather.js"></script>
 
